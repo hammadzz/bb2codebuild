@@ -36,9 +36,9 @@ cb_client = boto3.client('codebuild')
 def webhook(event, context):
     """Process a Bitbucket webhook. (Lambda entry point)"""
     # CodeBuild project name pattern
-    pattern = os.environ.get('pattern', '$username-$reponame-$branch')
-    if ('$username' not in pattern) or ('$reponame' not in pattern) or ('$branch' not in pattern):
-        raise RuntimeError('pattern env. variable must contain $username, $reponame, $branch')
+    pattern = os.environ.get('pattern', '$reponame-$branch')
+    if ('$reponame' not in pattern) or ('$branch' not in pattern):
+        raise RuntimeError('pattern env. variable must contain $reponame, $branch')
 
     # if a token is configured, make sure it is specified on the query string
     query_string = event['queryStringParameters']
